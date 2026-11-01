@@ -505,6 +505,51 @@ button.danger {
   border: 1px solid var(--danger);
 }
 
+/* ---------- Previsione ---------- */
+
+.table-wrap { overflow-x: auto; margin: 10px -4px 0; -webkit-overflow-scrolling: touch; }
+
+.proj {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.proj th {
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.proj td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.proj .num { text-align: right; }
+.proj .total { font-weight: 700; }
+.proj tr.is-current td { background: color-mix(in srgb, var(--primary) 12%, transparent); }
+.proj tr.is-future td { color: var(--muted); }
+.proj tr.is-future .total { color: var(--text); }
+.proj .est {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1px 6px;
+  vertical-align: middle;
+}
+
 /* ---------- Schermi più larghi ---------- */
 
 @media (min-width: 720px) {

@@ -168,6 +168,36 @@ function accountBalances(data) {
   };
 }
 
+// Previsione mese per mese fino a endKey: quanto rimane a fine mese e il totale progressivo.
+// Il totale parte dai saldi iniziali dei conti. Per i mesi futuri lo stipendio è
+// quello dell'ultimo mese inserito, e i versamenti fissi valgono in ogni mese.
+function monthlyProjection(data, endKey) {
+  const now = currentMonthKey();
+  const keys = new Set(Object.keys(data.months));
+  for (const r of data.recurring) keys.add(r.from);
+  keys.add(now);
+  const startKey = [...keys].sort()[0];
+
+  let running = Object.values(data.accounts).reduce((s, a) => round2(s + ((a && a.start) || 0)), 0);
+  let lastIncome = 0;
+  const rows = [];
+  for (let k = startKey; k <= endKey; k = shiftMonth(k, 1)) {
+    const month = data.months[k];
+    const hasIncome = !!(month && month.income);
+    if (hasIncome) lastIncome = month.income;
+    const future = k > now;
+    const income = hasIncome ? month.income : (future ? lastIncome : 0);
+    // I versamenti di risparmio spostano denaro tra i conti: restano nel totale, quindi non sono spese
+    const spent = round2(monthExpenses(data, k)
+      .filter((e) => e.bucket !== 'savings')
+      .reduce((s, e) => round2(s + e.amount), 0));
+    const left = round2(income - spent);
+    running = round2(running + left);
+    rows.push({ key: k, income, spent, left, total: running, future, estimated: future && !hasIncome });
+  }
+  return rows;
+}
+
 // Serie mensile di un anno: stipendio e spese per bucket.
 // Come per i saldi, i versamenti fissi contano solo fino al mese corrente.
 function yearSeries(data, year) {
@@ -341,5 +371,5 @@ function initTabs() {
 }
 
 if (typeof module !== 'undefined') {
-  module.exports = { splitBudget, spentByBucket, budgetStatus, topExpenses, yearSeries, accountBalances, savingsGoalFor, monthExpenses, shiftMonth, round2 };
+  module.exports = { splitBudget, spentByBucket, budgetStatus, topExpenses, yearSeries, accountBalances, savingsGoalFor, monthExpenses, monthlyProjection, shiftMonth, round2 };
 }
