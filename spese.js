@@ -12,10 +12,11 @@
   let data = loadData();
   let filter = 'all';
 
+  const SHORT_TARGET = { emergency: 'Fondo', invest: 'Investimenti' };
+
   function expenseTag(e) {
     if (e.bucket !== 'savings') return `<span class="tag tag-${e.bucket}">${BUCKETS[e.bucket].label}</span>`;
-    const target = ACCOUNTS[e.target || 'emergency'].name;
-    return `<span class="tag tag-${e.bucket}">Risparmio → ${target}</span>`;
+    return `<span class="tag tag-savings">→ ${SHORT_TARGET[e.target || 'emergency']}</span>`;
   }
 
   function renderMini(month, status) {

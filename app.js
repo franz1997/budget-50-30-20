@@ -306,28 +306,36 @@ function setSelectedMonth(key) {
   localStorage.setItem(MONTH_KEY, key);
 }
 
-// Collega il selettore di mese presente nella pagina; onChange ridisegna la pagina
+// "2026-11" -> "Novembre 2026"
+function monthLongLabel(key) {
+  const [y, m] = key.split('-').map(Number);
+  const text = new Date(y, m - 1, 1).toLocaleDateString('it-IT', { month: 'long', year: 'numeric' });
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+// Collega le frecce e l'etichetta del mese; onChange ridisegna la pagina.
+// Toccando il nome del mese si torna al mese corrente.
 function initMonthNav(onChange) {
-  const input = document.getElementById('month');
-  if (!input) return;
-  input.value = getSelectedMonth();
+  const label = document.getElementById('month');
+  if (!label) return;
+  const show = () => {
+    label.textContent = monthLongLabel(getSelectedMonth());
+  };
   const go = (key) => {
     setSelectedMonth(key);
-    input.value = key;
+    show();
     onChange();
   };
   document.getElementById('prev').addEventListener('click', () => go(shiftMonth(getSelectedMonth(), -1)));
   document.getElementById('next').addEventListener('click', () => go(shiftMonth(getSelectedMonth(), 1)));
-  document.getElementById('today').addEventListener('click', () => go(currentMonthKey()));
-  input.addEventListener('change', () => {
-    if (input.value) go(input.value);
-  });
+  label.addEventListener('click', () => go(currentMonthKey()));
+  show();
 }
 
-// Evidenzia la scheda della pagina corrente
+// Evidenzia la voce della barra in basso per la pagina corrente
 function initTabs() {
   const page = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.tabs a').forEach((a) => {
+  document.querySelectorAll('.tabbar a').forEach((a) => {
     a.classList.toggle('active', a.getAttribute('href') === page);
   });
 }

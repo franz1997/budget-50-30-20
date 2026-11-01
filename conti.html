@@ -2,48 +2,36 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#4f46e5">
-  <title>Conti · Budget 50-30-20</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f2f2f7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Budget">
+  <title>Conti · Budget</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <span class="logo" aria-hidden="true">€</span>
-      <div>
-        <h1>Budget 50-30-20</h1>
-        <p class="subtitle">Saldi e versamenti fissi</p>
-      </div>
-    </div>
-    <nav class="month-nav" aria-label="Selezione mese">
+    <h1>Conti</h1>
+    <div class="month-nav" aria-label="Selezione mese">
       <button id="prev" class="icon-btn" aria-label="Mese precedente">‹</button>
-      <input type="month" id="month" aria-label="Mese">
+      <button id="month" class="month-label" aria-label="Torna al mese corrente"></button>
       <button id="next" class="icon-btn" aria-label="Mese successivo">›</button>
-      <button id="today" class="ghost">Oggi</button>
-    </nav>
+    </div>
   </header>
-
-  <nav class="tabs" aria-label="Pagine">
-    <a href="index.html">Panoramica</a>
-    <a href="spese.html">Spese</a>
-    <a href="conti.html">Conti</a>
-    <a href="statistiche.html">Statistiche</a>
-  </nav>
 
   <main>
     <section class="card" id="accounts-card">
-      <h2>I miei conti</h2>
+      <h2>Saldi</h2>
       <div class="accounts" id="accounts"></div>
     </section>
 
     <section class="card" id="recurring-card">
       <h2>Versamenti mensili fissi</h2>
-      <p class="hint">Importi fissi aggiunti da soli come risparmio in ogni mese, a partire dal mese in cui li crei.</p>
+      <p class="hint">Importi fissi che vengono aggiunti da soli come risparmio ogni mese, a partire da quello in cui li crei.</p>
       <form id="recurring-form">
         <div class="input-prefix">
           <span>€</span>
-          <input type="number" id="rec-amount" min="0.01" step="0.01" placeholder="Importo al mese" required>
+          <input type="number" id="rec-amount" min="0.01" step="0.01" inputmode="decimal" placeholder="Importo al mese" required>
         </div>
         <select id="rec-target" aria-label="Conto di destinazione">
           <option value="invest">→ Conto investimenti</option>
@@ -55,11 +43,30 @@
       <p class="empty" id="rec-empty">Nessun versamento automatico.</p>
       <p class="hint" id="rec-total"></p>
     </section>
+
+    <div class="app-footer">
+      <button id="reset" class="danger" type="button">Azzera tutti i dati</button>
+    </div>
   </main>
 
-  <footer class="app-footer">
-    <button id="reset" class="danger" type="button">Azzera tutti i dati</button>
-  </footer>
+  <nav class="tabbar" aria-label="Pagine">
+    <a href="index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg>
+      <span>Panoramica</span>
+    </a>
+    <a href="spese.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg>
+      <span>Spese</span>
+    </a>
+    <a href="conti.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M16 15h2"/></svg>
+      <span>Conti</span>
+    </a>
+    <a href="statistiche.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V12M12 20V5M19 20v-6"/></svg>
+      <span>Statistiche</span>
+    </a>
+  </nav>
 
   <script src="app.js"></script>
   <script src="conti.js"></script>
