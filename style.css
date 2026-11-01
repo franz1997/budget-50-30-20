@@ -454,6 +454,40 @@ button.ghost:hover { background: rgba(255, 255, 255, 0.32); }
 #recurring-form input[type="number"] { flex: 0 1 200px; }
 #rec-total.is-over, .neg { color: var(--danger); font-weight: 600; }
 
+/* ---------- Schede di navigazione ---------- */
+
+.tabs {
+  max-width: 1100px;
+  margin: 16px auto 0;
+  padding: 0 16px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.tabs a {
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--border);
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.tabs a:hover { color: var(--text); }
+.tabs a.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.list-head { margin-top: 22px; }
+
 /* ---------- Footer ---------- */
 
 .app-footer {
@@ -481,6 +515,7 @@ button.danger:hover { background: var(--danger); color: #fff; }
 @media (max-width: 720px) {
   .grid { grid-template-columns: 1fr; }
   .accounts { grid-template-columns: 1fr; }
+  .mini-grid { grid-template-columns: 1fr; }
   .topbar { padding: 16px; }
   .stat-value { font-size: 1.2rem; }
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Spese · Budget 50-30-20</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">€</span>
+      <div>
+        <h1>Budget 50-30-20</h1>
+        <p class="subtitle">Le spese del mese</p>
+      </div>
+    </div>
+    <nav class="month-nav" aria-label="Selezione mese">
+      <button id="prev" class="icon-btn" aria-label="Mese precedente">‹</button>
+      <input type="month" id="month" aria-label="Mese">
+      <button id="next" class="icon-btn" aria-label="Mese successivo">›</button>
+      <button id="today" class="ghost">Oggi</button>
+    </nav>
+  </header>
+
+  <nav class="tabs" aria-label="Pagine">
+    <a href="index.html">Panoramica</a>
+    <a href="spese.html">Spese</a>
+    <a href="conti.html">Conti</a>
+    <a href="statistiche.html">Statistiche</a>
+  </nav>
+
+  <main>
+    <section class="mini-grid" id="mini"></section>
+
+    <section class="card" id="expenses-card">
+      <h2>Aggiungi spesa</h2>
+      <form id="expense-form">
+        <input type="text" id="exp-desc" placeholder="Descrizione (es. Affitto)" required>
+        <input type="number" id="exp-amount" min="0.01" step="0.01" placeholder="Importo €" required>
+        <select id="exp-bucket">
+          <option value="needs">Necessità</option>
+          <option value="wants">Desideri</option>
+          <option value="savings">Risparmio</option>
+        </select>
+        <select id="exp-target" hidden aria-label="Conto di destinazione">
+          <option value="emergency">→ Fondo emergenza</option>
+          <option value="invest">→ Conto investimenti</option>
+        </select>
+        <button type="submit">Aggiungi</button>
+      </form>
+
+      <div class="card-head list-head">
+        <h2>Elenco</h2>
+        <div class="chips" id="filters">
+          <button class="chip active" data-filter="all">Tutte</button>
+          <button class="chip" data-filter="needs">Necessità</button>
+          <button class="chip" data-filter="wants">Desideri</button>
+          <button class="chip" data-filter="savings">Risparmio</button>
+        </div>
+      </div>
+      <ul class="expense-list" id="expense-list"></ul>
+      <p class="empty" id="expense-empty">Nessuna spesa per questo mese.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script src="spese.js"></script>
+</body>
+</html>

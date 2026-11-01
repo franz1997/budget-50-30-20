@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Conti · Budget 50-30-20</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">€</span>
+      <div>
+        <h1>Budget 50-30-20</h1>
+        <p class="subtitle">Saldi e versamenti fissi</p>
+      </div>
+    </div>
+    <nav class="month-nav" aria-label="Selezione mese">
+      <button id="prev" class="icon-btn" aria-label="Mese precedente">‹</button>
+      <input type="month" id="month" aria-label="Mese">
+      <button id="next" class="icon-btn" aria-label="Mese successivo">›</button>
+      <button id="today" class="ghost">Oggi</button>
+    </nav>
+  </header>
+
+  <nav class="tabs" aria-label="Pagine">
+    <a href="index.html">Panoramica</a>
+    <a href="spese.html">Spese</a>
+    <a href="conti.html">Conti</a>
+    <a href="statistiche.html">Statistiche</a>
+  </nav>
+
+  <main>
+    <section class="card" id="accounts-card">
+      <h2>I miei conti</h2>
+      <div class="accounts" id="accounts"></div>
+    </section>
+
+    <section class="card" id="recurring-card">
+      <h2>Versamenti mensili fissi</h2>
+      <p class="hint">Importi fissi aggiunti da soli come risparmio in ogni mese, a partire dal mese in cui li crei.</p>
+      <form id="recurring-form">
+        <div class="input-prefix">
+          <span>€</span>
+          <input type="number" id="rec-amount" min="0.01" step="0.01" placeholder="Importo al mese" required>
+        </div>
+        <select id="rec-target" aria-label="Conto di destinazione">
+          <option value="invest">→ Conto investimenti</option>
+          <option value="emergency">→ Fondo emergenza</option>
+        </select>
+        <button type="submit">Aggiungi versamento</button>
+      </form>
+      <ul class="expense-list" id="rec-list"></ul>
+      <p class="empty" id="rec-empty">Nessun versamento automatico.</p>
+      <p class="hint" id="rec-total"></p>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <button id="reset" class="danger" type="button">Azzera tutti i dati</button>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="conti.js"></script>
+</body>
+</html>

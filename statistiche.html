@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Statistiche · Budget 50-30-20</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">€</span>
+      <div>
+        <h1>Budget 50-30-20</h1>
+        <p class="subtitle">Andamento dell'anno</p>
+      </div>
+    </div>
+    <nav class="month-nav" aria-label="Selezione mese">
+      <button id="prev" class="icon-btn" aria-label="Mese precedente">‹</button>
+      <input type="month" id="month" aria-label="Mese">
+      <button id="next" class="icon-btn" aria-label="Mese successivo">›</button>
+      <button id="today" class="ghost">Oggi</button>
+    </nav>
+  </header>
+
+  <nav class="tabs" aria-label="Pagine">
+    <a href="index.html">Panoramica</a>
+    <a href="spese.html">Spese</a>
+    <a href="conti.html">Conti</a>
+    <a href="statistiche.html">Statistiche</a>
+  </nav>
+
+  <main>
+    <section class="stats" id="year-stats"></section>
+
+    <section class="card" id="trend-card">
+      <div class="card-head">
+        <h2 id="trend-title">Andamento</h2>
+        <div class="legend-inline">
+          <span><i class="dot seg-needs"></i>Necessità</span>
+          <span><i class="dot seg-wants"></i>Desideri</span>
+          <span><i class="dot seg-savings"></i>Risparmio</span>
+          <span><i class="dot line"></i>Stipendio</span>
+        </div>
+      </div>
+      <div id="trend"></div>
+    </section>
+
+    <section class="card" id="top-card">
+      <h2>Spese principali del mese</h2>
+      <div id="top"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script src="statistiche.js"></script>
+</body>
+</html>
