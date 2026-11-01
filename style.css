@@ -140,6 +140,13 @@ body {
 
 /* ---------- Layout ---------- */
 
+[hidden] { display: none !important; }
+
+.view {
+  display: grid;
+  gap: 14px;
+}
+
 main {
   max-width: 1100px;
   margin: 12px auto 0;

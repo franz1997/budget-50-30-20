@@ -6,8 +6,6 @@
   const trendTitle = $('trend-title');
   const topEl = $('top');
 
-  let data = loadData();
-
   function renderYearStats(series) {
     const income = round2(series.reduce((s, m) => round2(s + m.income), 0));
     const spent = round2(series.reduce((s, m) => round2(s + m.total), 0));
@@ -28,7 +26,7 @@
   }
 
   function renderTop(key) {
-    const items = topExpenses(monthExpenses(data, key));
+    const items = topExpenses(monthExpenses(loadData(), key));
     if (!items.length) {
       topEl.innerHTML = '<p class="empty">Nessuna spesa da mostrare per questo mese.</p>';
       return;
@@ -45,7 +43,7 @@
   }
 
   function render() {
-    data = loadData();
+    const data = loadData();
     const key = getSelectedMonth();
     const year = key.split('-')[0];
     const series = yearSeries(data, year);
@@ -55,7 +53,5 @@
     renderTop(key);
   }
 
-  initTabs();
-  initMonthNav(render);
-  render();
+  registerView('statistiche', { render });
 })();

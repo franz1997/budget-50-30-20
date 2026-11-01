@@ -48,48 +48,52 @@
     renderRecurring();
   }
 
-  accountsEl.addEventListener('change', (ev) => {
-    const input = ev.target.closest('input[data-start]');
-    if (!input) return;
-    const value = parseFloat(input.value);
-    data.accounts[input.dataset.start].start = round2(Number.isFinite(value) ? value : 0);
-    saveData(data);
-    render();
-  });
+  registerView('conti', {
+    init() {
+      accountsEl.addEventListener('change', (ev) => {
+        const input = ev.target.closest('input[data-start]');
+        if (!input) return;
+        data = loadData();
+        const value = parseFloat(input.value);
+        data.accounts[input.dataset.start].start = round2(Number.isFinite(value) ? value : 0);
+        saveData(data);
+        render();
+      });
 
-  recForm.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-    const amount = round2(parseFloat(recAmount.value));
-    if (!(amount > 0)) return;
-    data.recurring.push({
-      id: newId(),
-      desc: 'Versamento mensile',
-      amount,
-      target: recTarget.value,
-      from: currentMonthKey(),
-    });
-    saveData(data);
-    recForm.reset();
-    render();
-  });
+      recForm.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        const amount = round2(parseFloat(recAmount.value));
+        if (!(amount > 0)) return;
+        data = loadData();
+        data.recurring.push({
+          id: newId(),
+          desc: 'Versamento mensile',
+          amount,
+          target: recTarget.value,
+          from: currentMonthKey(),
+        });
+        saveData(data);
+        recForm.reset();
+        render();
+      });
 
-  recList.addEventListener('click', (ev) => {
-    const btn = ev.target.closest('.delete-btn');
-    if (!btn) return;
-    if (!confirm('Eliminare questo versamento automatico da tutti i mesi?')) return;
-    data.recurring = data.recurring.filter((r) => r.id !== btn.dataset.rule);
-    saveData(data);
-    render();
-  });
+      recList.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('.delete-btn');
+        if (!btn) return;
+        if (!confirm('Eliminare questo versamento automatico da tutti i mesi?')) return;
+        data = loadData();
+        data.recurring = data.recurring.filter((r) => r.id !== btn.dataset.rule);
+        saveData(data);
+        render();
+      });
 
-  $('reset').addEventListener('click', () => {
-    if (!confirm('Cancellare tutti i dati (stipendi, spese, conti e versamenti)? L\'operazione non si può annullare.')) return;
-    localStorage.removeItem(STORAGE_KEY);
-    data = loadData();
-    render();
+      $('reset').addEventListener('click', () => {
+        if (!confirm('Cancellare tutti i dati (stipendi, spese, conti e versamenti)? L\'operazione non si può annullare.')) return;
+        localStorage.removeItem(STORAGE_KEY);
+        data = loadData();
+        render();
+      });
+    },
+    render,
   });
-
-  initTabs();
-  initMonthNav(() => {});
-  render();
 })();

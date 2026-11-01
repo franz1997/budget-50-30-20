@@ -6,10 +6,8 @@
   const emptyEl = $('proj-empty');
   const titleEl = $('projection-title');
 
-  let data = loadData();
-
   function render() {
-    data = loadData();
+    const data = loadData();
     const key = getSelectedMonth();
     const year = key.split('-')[0];
     const now = currentMonthKey();
@@ -58,7 +56,5 @@
       </div>`).join('');
   }
 
-  initTabs();
-  initMonthNav(render);
-  render();
+  registerView('previsione', { render });
 })();

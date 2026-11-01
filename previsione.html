@@ -2,71 +2,11 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#f2f2f7">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Budget">
-  <title>Previsione · Budget</title>
-  <link rel="stylesheet" href="style.css">
+  <meta http-equiv="refresh" content="0; url=index.html#previsione">
+  <title>Budget</title>
 </head>
 <body>
-  <header class="topbar">
-    <h1>Previsione</h1>
-    <div class="month-nav" aria-label="Selezione mese">
-      <button id="prev" class="icon-btn" aria-label="Mese precedente">‹</button>
-      <button id="month" class="month-label" aria-label="Torna al mese corrente"></button>
-      <button id="next" class="icon-btn" aria-label="Mese successivo">›</button>
-    </div>
-  </header>
-
-  <main>
-    <section class="stats" id="summary"></section>
-
-    <section class="card" id="projection-card">
-      <h2 id="projection-title">Fine mese</h2>
-      <p class="hint">Spese = necessità e desideri. I versamenti restano nei conti, quindi il totale è la somma dei tre conti a fine mese.</p>
-      <div class="table-wrap">
-        <table class="proj">
-          <thead>
-            <tr>
-              <th>Mese</th>
-              <th class="num">Stipendio</th>
-              <th class="num">Spese</th>
-              <th class="num">Rimane</th>
-              <th class="num">Totale</th>
-            </tr>
-          </thead>
-          <tbody id="rows"></tbody>
-        </table>
-      </div>
-      <p class="empty" id="proj-empty">Nessun dato da mostrare.</p>
-    </section>
-  </main>
-
-  <nav class="tabbar" aria-label="Pagine">
-    <a href="index.html">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg>
-      <span>Panoramica</span>
-    </a>
-    <a href="spese.html">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></svg>
-      <span>Spese</span>
-    </a>
-    <a href="conti.html">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M16 15h2"/></svg>
-      <span>Conti</span>
-    </a>
-    <a href="previsione.html">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-      <span>Previsione</span>
-    </a>
-    <a href="statistiche.html">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V12M12 20V5M19 20v-6"/></svg>
-      <span>Statistiche</span>
-    </a>
-  </nav>
-
-  <script src="app.js"></script>
-  <script src="previsione.js"></script>
+  <script>location.replace('index.html#previsione');</script>
+  <p><a href="index.html#previsione">Apri Previsione</a></p>
 </body>
 </html>

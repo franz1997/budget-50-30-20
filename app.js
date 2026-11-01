@@ -343,18 +343,17 @@ function monthLongLabel(key) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-// Collega le frecce e l'etichetta del mese; onChange ridisegna la pagina.
-// Toccando il nome del mese si torna al mese corrente.
-function initMonthNav(onChange) {
+// Frecce e nome del mese; toccando il nome si torna al mese corrente.
+// Al cambio mese si ridisegna la vista visibile.
+function initMonthNav() {
   const label = document.getElementById('month');
-  if (!label) return;
   const show = () => {
     label.textContent = monthLongLabel(getSelectedMonth());
   };
   const go = (key) => {
     setSelectedMonth(key);
     show();
-    onChange();
+    renderCurrentView();
   };
   document.getElementById('prev').addEventListener('click', () => go(shiftMonth(getSelectedMonth(), -1)));
   document.getElementById('next').addEventListener('click', () => go(shiftMonth(getSelectedMonth(), 1)));
@@ -362,12 +361,50 @@ function initMonthNav(onChange) {
   show();
 }
 
-// Evidenzia la voce della barra in basso per la pagina corrente
-function initTabs() {
-  const page = location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.tabbar a').forEach((a) => {
-    a.classList.toggle('active', a.getAttribute('href') === page);
+// ---------- Viste: una sola pagina, cambio scheda senza ricaricare ----------
+
+const VIEW_TITLES = {
+  panoramica: 'Panoramica',
+  spese: 'Spese',
+  conti: 'Conti',
+  previsione: 'Previsione',
+  statistiche: 'Statistiche',
+};
+
+const controllers = {};
+let currentView = 'panoramica';
+
+// Ogni vista registra init (una volta, collega gli eventi) e render (ad ogni visita o cambio mese)
+function registerView(name, controller) {
+  controllers[name] = controller;
+}
+
+function renderCurrentView() {
+  if (controllers[currentView]) controllers[currentView].render();
+}
+
+function showView(name) {
+  if (!VIEW_TITLES[name]) name = 'panoramica';
+  currentView = name;
+  document.querySelectorAll('.view').forEach((v) => {
+    v.hidden = v.id !== `view-${name}`;
   });
+  document.querySelectorAll('.tabbar a').forEach((a) => {
+    a.classList.toggle('active', a.dataset.view === name);
+  });
+  document.getElementById('page-title').textContent = VIEW_TITLES[name];
+  renderCurrentView();
+  window.scrollTo(0, 0);
+}
+
+// Avvio: collega gli eventi di tutte le viste, il mese e la navigazione
+function initRouter() {
+  window.addEventListener('hashchange', () => showView(location.hash.slice(1)));
+  Object.values(controllers).forEach((c) => {
+    if (c.init) c.init();
+  });
+  initMonthNav();
+  showView(location.hash.slice(1));
 }
 
 if (typeof module !== 'undefined') {

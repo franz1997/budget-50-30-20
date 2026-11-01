@@ -108,16 +108,18 @@
     renderSplit(month, status);
   }
 
-  $('income-form').addEventListener('submit', (ev) => {
-    ev.preventDefault();
-    const value = parseFloat(incomeInput.value);
-    if (!(value >= 0)) return;
-    getMonth(data, getSelectedMonth()).income = round2(value);
-    saveData(data);
-    render();
+  registerView('panoramica', {
+    init() {
+      $('income-form').addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        const value = parseFloat(incomeInput.value);
+        if (!(value >= 0)) return;
+        data = loadData();
+        getMonth(data, getSelectedMonth()).income = round2(value);
+        saveData(data);
+        render();
+      });
+    },
+    render,
   });
-
-  initTabs();
-  initMonthNav(render);
-  render();
 })();

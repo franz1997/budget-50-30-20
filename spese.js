@@ -69,44 +69,47 @@
     renderList(expenses);
   }
 
-  bucketSelect.addEventListener('change', () => {
-    targetSelect.hidden = bucketSelect.value !== 'savings';
-  });
+  registerView('spese', {
+    init() {
+      bucketSelect.addEventListener('change', () => {
+        targetSelect.hidden = bucketSelect.value !== 'savings';
+      });
 
-  expenseForm.addEventListener('submit', (ev) => {
-    ev.preventDefault();
-    const desc = $('exp-desc').value.trim();
-    const amount = round2(parseFloat($('exp-amount').value));
-    const bucket = bucketSelect.value;
-    if (!desc || !(amount > 0)) return;
-    const expense = { id: newId(), desc, amount, bucket };
-    if (bucket === 'savings') expense.target = targetSelect.value;
-    getMonth(data, getSelectedMonth()).expenses.push(expense);
-    saveData(data);
-    expenseForm.reset();
-    targetSelect.hidden = true;
-    $('exp-desc').focus();
-    render();
-  });
+      expenseForm.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        const desc = $('exp-desc').value.trim();
+        const amount = round2(parseFloat($('exp-amount').value));
+        const bucket = bucketSelect.value;
+        if (!desc || !(amount > 0)) return;
+        data = loadData();
+        const expense = { id: newId(), desc, amount, bucket };
+        if (bucket === 'savings') expense.target = targetSelect.value;
+        getMonth(data, getSelectedMonth()).expenses.push(expense);
+        saveData(data);
+        expenseForm.reset();
+        targetSelect.hidden = true;
+        $('exp-desc').focus();
+        render();
+      });
 
-  expenseList.addEventListener('click', (ev) => {
-    const btn = ev.target.closest('.delete-btn');
-    if (!btn) return;
-    if (!confirm('Eliminare questa spesa?')) return;
-    const month = getMonth(data, getSelectedMonth());
-    month.expenses = month.expenses.filter((e) => e.id !== btn.dataset.id);
-    saveData(data);
-    render();
-  });
+      expenseList.addEventListener('click', (ev) => {
+        const btn = ev.target.closest('.delete-btn');
+        if (!btn) return;
+        if (!confirm('Eliminare questa spesa?')) return;
+        data = loadData();
+        const month = getMonth(data, getSelectedMonth());
+        month.expenses = month.expenses.filter((e) => e.id !== btn.dataset.id);
+        saveData(data);
+        render();
+      });
 
-  filterEl.addEventListener('click', (ev) => {
-    const chip = ev.target.closest('.chip');
-    if (!chip) return;
-    filter = chip.dataset.filter;
-    render();
+      filterEl.addEventListener('click', (ev) => {
+        const chip = ev.target.closest('.chip');
+        if (!chip) return;
+        filter = chip.dataset.filter;
+        render();
+      });
+    },
+    render,
   });
-
-  initTabs();
-  initMonthNav(render);
-  render();
 })();
