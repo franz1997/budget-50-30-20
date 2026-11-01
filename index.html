@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget 50-30-20</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">€</span>
+      <div>
+        <h1>Budget 50-30-20</h1>
+        <p class="subtitle">Risparmi fissi, poi necessità e desideri nel rapporto 50 · 30</p>
+      </div>
+    </div>
+    <nav class="month-nav" aria-label="Selezione mese">
+      <button id="prev" class="icon-btn" aria-label="Mese precedente">‹</button>
+      <input type="month" id="month" aria-label="Mese">
+      <button id="next" class="icon-btn" aria-label="Mese successivo">›</button>
+      <button id="today" class="ghost">Oggi</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="stats" id="stats"></section>
+
+    <div class="grid">
+      <section class="card wide" id="accounts-card">
+        <h2>I miei conti</h2>
+        <div class="accounts" id="accounts"></div>
+      </section>
+
+      <section class="card wide" id="recurring-card">
+        <h2>Versamenti mensili automatici</h2>
+        <p class="hint">Importi fissi che vengono aggiunti da soli come risparmio in ogni mese, a partire dal mese in cui li crei. Il resto dello stipendio è quanto puoi spendere in necessità e desideri.</p>
+        <form id="recurring-form">
+          <div class="input-prefix">
+            <span>€</span>
+            <input type="number" id="rec-amount" min="0.01" step="0.01" placeholder="Importo al mese" required>
+          </div>
+          <select id="rec-target" aria-label="Conto di destinazione">
+            <option value="invest">→ Conto investimenti</option>
+            <option value="emergency">→ Fondo emergenza</option>
+          </select>
+          <button type="submit">Aggiungi versamento</button>
+        </form>
+        <ul class="expense-list" id="rec-list"></ul>
+        <p class="empty" id="rec-empty">Nessun versamento automatico.</p>
+        <p class="hint" id="rec-total"></p>
+      </section>
+
+      <section class="card" id="income-card">
+        <h2>Stipendio del mese</h2>
+        <form id="income-form">
+          <div class="input-prefix">
+            <span>€</span>
+            <input type="number" id="income" min="0" step="0.01" placeholder="0,00" required>
+          </div>
+          <button type="submit">Salva</button>
+        </form>
+        <p class="hint" id="income-hint"></p>
+      </section>
+
+      <section class="card" id="split-card">
+        <h2>Ripartizione del disponibile</h2>
+        <div class="split-wrap">
+          <div id="donut" class="donut-wrap"></div>
+          <ul class="legend" id="split-legend"></ul>
+        </div>
+        <p class="empty" id="split-empty">Inserisci lo stipendio per vedere la ripartizione.</p>
+        <div class="buckets" id="buckets"></div>
+      </section>
+
+      <section class="card wide" id="trend-card">
+        <div class="card-head">
+          <h2 id="trend-title">Andamento</h2>
+          <div class="legend-inline">
+            <span><i class="dot seg-needs"></i>Necessità</span>
+            <span><i class="dot seg-wants"></i>Desideri</span>
+            <span><i class="dot seg-savings"></i>Risparmio</span>
+            <span><i class="dot line"></i>Stipendio</span>
+          </div>
+        </div>
+        <div id="trend"></div>
+      </section>
+
+      <section class="card" id="top-card">
+        <h2>Spese principali</h2>
+        <div id="top"></div>
+      </section>
+
+      <section class="card wide" id="expenses-card">
+        <div class="card-head">
+          <h2>Spese</h2>
+          <div class="chips" id="filters">
+            <button class="chip active" data-filter="all">Tutte</button>
+            <button class="chip" data-filter="needs">Necessità</button>
+            <button class="chip" data-filter="wants">Desideri</button>
+            <button class="chip" data-filter="savings">Risparmio</button>
+          </div>
+        </div>
+        <form id="expense-form">
+          <input type="text" id="exp-desc" placeholder="Descrizione (es. Affitto)" required>
+          <input type="number" id="exp-amount" min="0.01" step="0.01" placeholder="Importo €" required>
+          <select id="exp-bucket">
+            <option value="needs">Necessità</option>
+            <option value="wants">Desideri</option>
+            <option value="savings">Risparmio</option>
+          </select>
+          <select id="exp-target" hidden aria-label="Conto di destinazione">
+            <option value="emergency">→ Fondo emergenza</option>
+            <option value="invest">→ Conto investimenti</option>
+          </select>
+          <button type="submit">Aggiungi</button>
+        </form>
+        <ul class="expense-list" id="expense-list"></ul>
+        <p class="empty" id="expense-empty">Nessuna spesa per questo mese.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <button id="reset" class="danger" type="button">Azzera tutti i dati</button>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
